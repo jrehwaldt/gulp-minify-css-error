@@ -3,13 +3,19 @@ var
     less        = require('gulp-less'),
     lessStream  = require('less-stream'),
     prefix      = require('gulp-autoprefixer'),
-    minifyCss   = require('gulp-minify-css'),
     rename      = require('gulp-rename'),
-    sourcemaps  = require('gulp-sourcemaps')
+    sourcemaps  = require('gulp-sourcemaps'),
+    sync        = require('gulp-sync')(gulp).sync,
     
+    // not working with gulp-less@3.0.1 or any later version;
+    // earlier versions not tested
+    minifyCss   = require('gulp-minify-css'),
+    
+    // working with gulp-less@3.0.1 & 3.0.2
     postcss     = require('gulp-postcss'),
     csswring    = require('csswring'),
     
+    // working with gulp-less@3.0.1
     cssnano     = require('gulp-cssnano');
 
 var config = {
@@ -41,4 +47,4 @@ gulp.task('minify',function() {
     .pipe(gulp.dest(config.cssDir));
 });
 
-gulp.task('default', ['less']);
+gulp.task('default', sync(['less', 'minify']));
