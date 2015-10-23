@@ -12,10 +12,12 @@ var
     minifyCss   = require('gulp-minify-css'),
     
     // working with gulp-less@3.0.1 & 3.0.2
+    // *not* working with ~@3.0.3
     postcss     = require('gulp-postcss'),
     csswring    = require('csswring'),
     
-    // working with gulp-less@3.0.1
+    // working with gulp-less@3.0.1 & 3.0.2
+    // *not* working with ~@3.0.3
     cssnano     = require('gulp-cssnano');
 
 var config = {
@@ -41,8 +43,8 @@ gulp.task('minify',function() {
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(rename({suffix: '.min'}))
     //.pipe(minifyCss({sourceMap:true}))
-    .pipe(postcss([csswring]))
-    //.pipe(cssnano())
+    //.pipe(postcss([csswring]))
+    .pipe(cssnano())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.cssDir));
 });
